@@ -1,0 +1,16 @@
+# Contributing – EC2 Webapp with S3 Backend
+
+I welcome contributions, whether it’s fixing a bug, improving docs, or adding examples.
+
+## Steps to Contribute
+1. Fork the repo and clone it to your computer.
+2. Create a branch for your work:
+   git checkout -b your-branch-name
+3. Make your changes and test them.
+4. Commit your work with a clear message.
+5. Push your branch and open a pull request.
+
+## Tips
+- Keep commits small and focused.
+- Don’t commit AWS keys or secrets.
+- Update documentation if you add or change features.
