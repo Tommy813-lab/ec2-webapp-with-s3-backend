@@ -1,147 +1,126 @@
-EC2 Web Application with S3 Backend
-Overview
+# EC2 Web Application with S3 Backend
 
-This project demonstrates a scalable, secure, and cost-effective web application architecture on AWS. Utilizing Terraform for Infrastructure-as-Code (IaC), the setup includes:
+## Overview
+This project demonstrates a scalable, secure, and cost-effective web application architecture on AWS. Using Terraform for Infrastructure-as-Code (IaC), the setup includes:
 
-Amazon EC2: Hosts the web application.
+- **Amazon EC2**: Hosts the web application.
+- **Amazon S3**: Serves as the backend storage for static assets.
+- **Amazon RDS**: Relational database service for dynamic data.
+- **Amazon VPC**: Provides network isolation and security.
+- **IAM**: Access controls and permissions management.
 
-Amazon S3: Serves as the backend storage for static assets.
+The architecture is designed for **high availability, scalability, and security**, suitable for production environments.
 
-Amazon RDS: Manages relational database services.
+---
 
-Amazon VPC: Ensures network isolation and security.
+## Architecture Diagram
+[Insert Diagram Here: EC2 → S3 → RDS → VPC → IAM]
 
-IAM: Manages access controls and permissions.
+yaml
+Copy code
 
-The architecture is designed for high availability, scalability, and security, making it suitable for production environments.
+---
 
-Architecture Diagram
+## Features
+- **Scalability**: Auto-scaling EC2 instances to handle varying loads.
+- **Security**: Private subnets, security groups, and IAM roles enforcing least privilege.
+- **Cost Optimization**: S3 for static content delivery reduces EC2 load.
+- **High Availability**: Multi-AZ deployments for EC2 and RDS.
+- **Automation**: Complete infrastructure provisioning via Terraform.
 
-Features
+---
 
-Scalability: Auto-scaling EC2 instances to handle varying loads.
+## Prerequisites
+- AWS Account
+- Terraform 1.0+
+- AWS CLI configured with proper credentials
+- Text editor (VSCode recommended)
 
-Security: Private subnets, security groups, and IAM roles to enforce least privilege.
+---
 
-Cost Optimization: Utilizes S3 for static content delivery, reducing EC2 load.
+## Deployment Steps
 
-High Availability: Multi-AZ deployments for EC2 and RDS.
-
-Automation: Complete infrastructure provisioning via Terraform.
-
-Prerequisites
-
-AWS Account
-
-Terraform 1.0+
-
-AWS CLI configured with appropriate credentials
-
-Text editor (e.g., VSCode)
-
-Deployment Steps
-
-Clone the Repository:
-
+### 1. Clone the Repository
+```bash
 git clone https://github.com/Tommy813-lab/ec2-webapp-with-s3-backend.git
 cd ec2-webapp-with-s3-backend
-
-
-Initialize Terraform:
-
+2. Initialize Terraform
+bash
+Copy code
 terraform init
-
-
-Plan the Deployment:
-
+3. Plan the Deployment
+bash
+Copy code
 terraform plan
-
-
-Apply the Configuration:
-
+4. Apply the Configuration
+bash
+Copy code
 terraform apply
-
-
-Access the Application:
-
-After successful deployment, navigate to the provided EC2 public IP or domain to access the web application.
+5. Access the Application
+After successful deployment, navigate to the EC2 public IP or domain provided by Terraform output.
 
 Components
 EC2 Instance
+Runs a web server (Nginx/Apache)
 
-The EC2 instance runs a web server (e.g., Nginx or Apache) serving the frontend application. It is configured to:
+Pulls static assets from S3
 
-Pull static assets from the S3 bucket.
+Handles dynamic requests and API calls
 
-Handle dynamic requests and API calls.
-
-Scale based on traffic using Auto Scaling Groups.
+Scales based on traffic using Auto Scaling Groups
 
 S3 Bucket
+Stores static assets (HTML, CSS, JS, images)
 
-The S3 bucket stores static assets such as HTML, CSS, JavaScript, and image files. It is configured with:
+Public read access for content delivery
 
-Public read access for static content delivery.
+Versioning enabled
 
-Versioning enabled for asset management.
-
-Lifecycle policies for cost management.
+Lifecycle policies for cost management
 
 RDS Database
+Multi-AZ deployment
 
-Amazon RDS is used for relational data storage. It is configured with:
+Automated backups and snapshots
 
-Multi-AZ deployment for high availability.
-
-Automated backups and snapshots.
-
-Security groups restricting access to EC2 instances.
+Security groups restrict access to EC2
 
 VPC and Networking
+Public & private subnets across multiple Availability Zones
 
-The Virtual Private Cloud (VPC) setup includes:
+Internet Gateway for public subnet access
 
-Public and private subnets across multiple Availability Zones.
+NAT Gateway for private subnet internet access
 
-Internet Gateway for public subnet access.
-
-NAT Gateway for secure internet access from private subnets.
-
-Route Tables and Security Groups to control traffic flow.
+Route Tables and Security Groups control traffic flow
 
 IAM Roles and Policies
+Allow EC2 to securely access S3 and RDS
 
-IAM roles and policies are defined to:
+Enforce least privilege
 
-Allow EC2 instances to access S3 and RDS resources securely.
-
-Enforce least privilege access control.
-
-Audit and monitor access using CloudTrail.
+Audit access via CloudTrail
 
 Best Practices
+Version Control: Git for source code management
 
-Version Control: Use Git for source code management.
+Environment Variables: Store sensitive info using AWS Secrets Manager
 
-Environment Variables: Store sensitive information using AWS Secrets Manager.
+Monitoring: Implement CloudWatch for logs and alerts
 
-Monitoring: Implement CloudWatch for logging and monitoring.
-
-Cost Management: Regularly review AWS Cost Explorer for optimization opportunities.
+Cost Management: Regularly review AWS Cost Explorer
 
 Contributing
-
-Contributions are welcome! Please fork the repository, create a new branch, and submit a pull request with your changes.
+Contributions are welcome! Please fork the repo, create a new branch, and submit a pull request.
 
 License
-
-This project is licensed under the MIT License - see the LICENSE
- file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 Acknowledgments
+AWS for cloud infrastructure
 
-AWS for providing the cloud infrastructure.
+Terraform for IaC
 
-Terraform for Infrastructure-as-Code capabilities.
+Open-source community
 
-Open-source community for continuous learning and inspiration.
+yaml
