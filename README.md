@@ -1,147 +1,147 @@
-🌍 EC2 Web Application with S3 Backend
-📌 Overview
+EC2 Web Application with S3 Backend
+Overview
 
-This project delivers a cloud-native web application hosted on Amazon EC2, with backend storage and static content served from Amazon S3.
+This project demonstrates a scalable, secure, and cost-effective web application architecture on AWS. Utilizing Terraform for Infrastructure-as-Code (IaC), the setup includes:
 
-It’s designed as a hands-on, production-ready lab to showcase:
+Amazon EC2: Hosts the web application.
 
-Infrastructure as Code (Terraform)
+Amazon S3: Serves as the backend storage for static assets.
 
-Deployment Automation (PowerShell)
+Amazon RDS: Manages relational database services.
 
-Application Development (Node.js/Express)
+Amazon VPC: Ensures network isolation and security.
 
-Cloud-Native Storage Integration (Amazon S3)
+IAM: Manages access controls and permissions.
 
-CI/CD Expansion Potential (GitHub Actions ready)
+The architecture is designed for high availability, scalability, and security, making it suitable for production environments.
 
-🏗️ Architecture
-flowchart TD
-    A[Users] --> B[EC2: Web App]
-    B -->|Static Files / Uploads| C[S3 Bucket]
-    B --> D[App Logic: Routes, Controllers]
-    D --> E[Business Logic / Models]
+Architecture Diagram
 
+Features
 
-Frontend (EC2 + Express + Views) – Serves UI and handles requests.
+Scalability: Auto-scaling EC2 instances to handle varying loads.
 
-Backend (Controllers + Models) – Executes app logic.
+Security: Private subnets, security groups, and IAM roles to enforce least privilege.
 
-S3 Storage – Stores static assets, uploads, and media.
+Cost Optimization: Utilizes S3 for static content delivery, reducing EC2 load.
 
-Terraform + PowerShell – Fully automates infra + lifecycle.
+High Availability: Multi-AZ deployments for EC2 and RDS.
 
-📂 Repository Layout
-ec2-webapp-with-s3-backend/
-├── app/                         # Application layer
-│   ├── index.js
-│   ├── routes/api.js
-│   ├── controllers/
-│   ├── models/
-│   ├── views/
-│   └── public/
-│
-├── infrastructure/
-│   ├── terraform/               # IaC definitions
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-│   │   └── provider.tf
-│   └── powershell/              # Infra automation
-│       ├── deploy.ps1
-│       ├── destroy.ps1
-│       ├── setup-ec2.ps1
-│       └── setup-s3.ps1
-│
-├── scripts/                     # Utility scripts
-│   ├── start-app.ps1
-│   ├── stop-app.ps1
-│   ├── upload-to-s3.ps1
-│   └── cleanup.ps1
-│
-├── docs/                        # Documentation
-│   ├── architecture.png
-│   ├── deployment.md
-│   ├── usage.md
-│   ├── ec2-setup.md
-│   └── s3-setup.md
-│
-├── tests/                       # Tests (unit + integration)
-│   ├── test_app.js
-│   ├── test_s3_upload.js
-│   └── test_ec2_connection.js
-│
-├── assets/                      # Logos + styling
-├── config/                      # Config files
-├── .gitignore
-├── LICENSE
-└── README.md
+Automation: Complete infrastructure provisioning via Terraform.
 
-🚀 Deployment Guide
-1️⃣ Clone the repository
+Prerequisites
+
+AWS Account
+
+Terraform 1.0+
+
+AWS CLI configured with appropriate credentials
+
+Text editor (e.g., VSCode)
+
+Deployment Steps
+
+Clone the Repository:
+
 git clone https://github.com/Tommy813-lab/ec2-webapp-with-s3-backend.git
 cd ec2-webapp-with-s3-backend
 
-2️⃣ Configure AWS
-aws configure
 
+Initialize Terraform:
 
-Provide your Access Key, Secret Key, and default region.
-
-3️⃣ Provision with Terraform
-cd infrastructure/terraform
 terraform init
-terraform apply -auto-approve
-
-4️⃣ Deploy Application
-cd ../powershell
-.\deploy.ps1
-
-5️⃣ Access Application
-
-Navigate to your EC2 public DNS or Elastic IP.
-
-Static assets (CSS, images) are served via S3.
-
-🧪 Testing
-npm install
-npm run test
 
 
-test_app.js → App functionality
+Plan the Deployment:
 
-test_s3_upload.js → S3 upload validation
+terraform plan
 
-test_ec2_connection.js → EC2 health check
 
-📖 Documentation
+Apply the Configuration:
 
-EC2 Setup Guide
+terraform apply
 
-S3 Setup Guide
 
-Deployment Guide
+Access the Application:
 
-Usage Scenarios
+After successful deployment, navigate to the provided EC2 public IP or domain to access the web application.
 
-🔒 Security
+Components
+EC2 Instance
 
-EC2 secured with restricted Security Groups (HTTP/HTTPS only).
+The EC2 instance runs a web server (e.g., Nginx or Apache) serving the frontend application. It is configured to:
 
-IAM Roles with least-privilege access for S3.
+Pull static assets from the S3 bucket.
 
-Sensitive configs stored in .env (excluded via .gitignore).
+Handle dynamic requests and API calls.
 
-🛠️ Future Enhancements
+Scale based on traffic using Auto Scaling Groups.
 
-CI/CD pipeline with GitHub Actions.
+S3 Bucket
 
-Dockerized deployment.
+The S3 bucket stores static assets such as HTML, CSS, JavaScript, and image files. It is configured with:
 
-Load balancing with ALB.
+Public read access for static content delivery.
 
-CloudFront CDN for S3 assets.
+Versioning enabled for asset management.
 
-📜 License
+Lifecycle policies for cost management.
 
-This project is licensed under the MIT License.
+RDS Database
+
+Amazon RDS is used for relational data storage. It is configured with:
+
+Multi-AZ deployment for high availability.
+
+Automated backups and snapshots.
+
+Security groups restricting access to EC2 instances.
+
+VPC and Networking
+
+The Virtual Private Cloud (VPC) setup includes:
+
+Public and private subnets across multiple Availability Zones.
+
+Internet Gateway for public subnet access.
+
+NAT Gateway for secure internet access from private subnets.
+
+Route Tables and Security Groups to control traffic flow.
+
+IAM Roles and Policies
+
+IAM roles and policies are defined to:
+
+Allow EC2 instances to access S3 and RDS resources securely.
+
+Enforce least privilege access control.
+
+Audit and monitor access using CloudTrail.
+
+Best Practices
+
+Version Control: Use Git for source code management.
+
+Environment Variables: Store sensitive information using AWS Secrets Manager.
+
+Monitoring: Implement CloudWatch for logging and monitoring.
+
+Cost Management: Regularly review AWS Cost Explorer for optimization opportunities.
+
+Contributing
+
+Contributions are welcome! Please fork the repository, create a new branch, and submit a pull request with your changes.
+
+License
+
+This project is licensed under the MIT License - see the LICENSE
+ file for details.
+
+Acknowledgments
+
+AWS for providing the cloud infrastructure.
+
+Terraform for Infrastructure-as-Code capabilities.
+
+Open-source community for continuous learning and inspiration.
