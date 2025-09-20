@@ -1,126 +1,152 @@
-# EC2 Web Application with S3 Backend
+EC2 Web App with S3 Backend
+Overview
 
-## Overview
-This project demonstrates a scalable, secure, and cost-effective web application architecture on AWS. Using Terraform for Infrastructure-as-Code (IaC), the setup includes:
+This project demonstrates a basic web application hosted on an AWS EC2 instance, with a static asset backend stored in S3. It’s designed to showcase cloud architecture, automation, and integration of EC2 and S3 for scalable web applications.
 
-- **Amazon EC2**: Hosts the web application.
-- **Amazon S3**: Serves as the backend storage for static assets.
-- **Amazon RDS**: Relational database service for dynamic data.
-- **Amazon VPC**: Provides network isolation and security.
-- **IAM**: Access controls and permissions management.
+Key Features:
 
-The architecture is designed for **high availability, scalability, and security**, suitable for production environments.
+EC2-hosted web application (Python/Node.js).
 
----
+Static file storage in S3 with secure access.
 
-## Architecture Diagram
-[Insert Diagram Here: EC2 → S3 → RDS → VPC → IAM]
+Easy deployment instructions for beginners and intermediate AWS users.
 
-yaml
-Copy code
+Prerequisites
 
----
+Before setting up the project, ensure you have the following installed:
 
-## Features
-- **Scalability**: Auto-scaling EC2 instances to handle varying loads.
-- **Security**: Private subnets, security groups, and IAM roles enforcing least privilege.
-- **Cost Optimization**: S3 for static content delivery reduces EC2 load.
-- **High Availability**: Multi-AZ deployments for EC2 and RDS.
-- **Automation**: Complete infrastructure provisioning via Terraform.
+AWS CLI: Install Guide
 
----
+Python 3.9+ or Node.js 18+ (depending on your web app stack)
 
-## Prerequisites
-- AWS Account
-- Terraform 1.0+
-- AWS CLI configured with proper credentials
-- Text editor (VSCode recommended)
+Git for cloning the repo
 
----
+An AWS Account with permissions to:
 
-## Deployment Steps
+Launch EC2 instances
 
-### 1. Clone the Repository
-```bash
+Create and manage S3 buckets
+
+Create IAM roles and attach policies
+
+Architecture Diagram
+          +----------------+
+          |     Users      |
+          +--------+-------+
+                   |
+                   v
+          +----------------+
+          |      EC2       |
+          |  Web App Host  |
+          +--------+-------+
+                   |
+           HTTP/HTTPS Requests
+                   |
+                   v
+          +----------------+
+          |      S3        |
+          | Static Assets  |
+          +----------------+
+
+Setup Guide
+Step 1: Clone the Repository
 git clone https://github.com/Tommy813-lab/ec2-webapp-with-s3-backend.git
 cd ec2-webapp-with-s3-backend
-2. Initialize Terraform
-bash
-Copy code
-terraform init
-3. Plan the Deployment
-bash
-Copy code
-terraform plan
-4. Apply the Configuration
-bash
-Copy code
-terraform apply
-5. Access the Application
-After successful deployment, navigate to the EC2 public IP or domain provided by Terraform output.
 
-Components
-EC2 Instance
-Runs a web server (Nginx/Apache)
+Step 2: Configure AWS CLI
+aws configure
 
-Pulls static assets from S3
 
-Handles dynamic requests and API calls
+Provide your AWS Access Key ID, Secret Access Key, default region, and output format.
 
-Scales based on traffic using Auto Scaling Groups
+Step 3: Create S3 Bucket
+aws s3 mb s3://my-webapp-bucket
+aws s3 website s3://my-webapp-bucket --index-document index.html
 
-S3 Bucket
-Stores static assets (HTML, CSS, JS, images)
 
-Public read access for content delivery
+⚠️ Make sure to replace my-webapp-bucket with a unique bucket name.
 
-Versioning enabled
+Upload static assets:
 
-Lifecycle policies for cost management
+aws s3 cp ./static s3://my-webapp-bucket --recursive
 
-RDS Database
-Multi-AZ deployment
+Step 4: Launch EC2 Instance
 
-Automated backups and snapshots
+Go to AWS Console → EC2 → Launch Instance
 
-Security groups restrict access to EC2
+Choose Amazon Linux 2 (or Ubuntu 22.04)
 
-VPC and Networking
-Public & private subnets across multiple Availability Zones
+Select an instance type (e.g., t2.micro for free tier)
 
-Internet Gateway for public subnet access
+Configure security group:
 
-NAT Gateway for private subnet internet access
+HTTP (80) and HTTPS (443) open
 
-Route Tables and Security Groups control traffic flow
+SSH (22) open to your IP only
 
-IAM Roles and Policies
-Allow EC2 to securely access S3 and RDS
+Attach IAM Role with S3 Read/Write Access
 
-Enforce least privilege
+Step 5: Deploy Web App to EC2
 
-Audit access via CloudTrail
+SSH into the instance:
 
-Best Practices
-Version Control: Git for source code management
+ssh -i "my-key.pem" ec2-user@<EC2_PUBLIC_IP>
 
-Environment Variables: Store sensitive info using AWS Secrets Manager
 
-Monitoring: Implement CloudWatch for logs and alerts
+Clone your app:
 
-Cost Management: Regularly review AWS Cost Explorer
+git clone https://github.com/Tommy813-lab/ec2-webapp-with-s3-backend.git
+cd ec2-webapp-with-s3-backend
 
-Contributing
-Contributions are welcome! Please fork the repo, create a new branch, and submit a pull request.
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+Install dependencies:
 
-Acknowledgments
-AWS for cloud infrastructure
+Python Example:
 
-Terraform for IaC
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python app.py
 
-Open-source community
 
-yaml
+Node.js Example:
+
+npm install
+node app.js
+
+
+Your app should now be accessible at http://<EC2_PUBLIC_IP>.
+
+Example Usage
+
+Visit your web app in the browser:
+
+http://<EC2_PUBLIC_IP>
+
+
+Expected behavior:
+
+Static assets (images, JS, CSS) are loaded from S3
+
+Dynamic content served from EC2 web app
+
+Screenshots
+
+Replace these with your own images
+
+[Screenshot of web app homepage]
+[Screenshot of S3 bucket with assets]
+[Screenshot of EC2 instance running]
+
+Security Best Practices
+
+Use IAM roles for EC2 instead of hardcoding AWS credentials.
+
+Block public access to S3 buckets whenever possible.
+
+Restrict security group rules to only the necessary ports.
+
+
+If you want, I can also draft a polished diagram image and integrate it into the README so it looks visually professional for GitHub. That makes it look really portfolio-ready.
+
+Do you want me to d
