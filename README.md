@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 EC2 Web App with S3 Backend
 
 
