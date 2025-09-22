@@ -299,8 +299,3 @@ Block public access to S3 buckets whenever possible.
 
 Restrict security group rules to only the necessary ports.
 
-
-If you want, I can also draft a polished diagram image and integrate it into the README so it looks visually professional for GitHub. That makes it look really portfolio-ready.
-
-Do you want me to d
->>>>>>> be78b480abc95951a057b8c0eca7a94022e7356c
