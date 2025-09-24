@@ -280,14 +280,6 @@ Static assets (images, JS, CSS) are loaded from S3
 
 Dynamic content served from EC2 web app
 
-Screenshots
-
-Replace these with your own images
-
-[Screenshot of web app homepage]
-[Screenshot of S3 bucket with assets]
-[Screenshot of EC2 instance running]
-
 Security Best Practices
 
 Use IAM roles for EC2 instead of hardcoding AWS credentials.
