@@ -1,9 +1,6 @@
 
 EC2 Web App with S3 Backend
 
-
-High-level architecture diagram showing EC2 instances, S3 backend, and networking.
-
 Table of Contents
 
 Project Overview
