@@ -1,5 +1,7 @@
-
+> 🚀 TL;DR: Terraform-based AWS web app with EC2 + S3 backend. Modular code, secure defaults, and CI/CD-ready. Maps to AWS Architect and Security cert domains.
 EC2 Web App with S3 Backend
+
+ 
 
 Table of Contents
 
