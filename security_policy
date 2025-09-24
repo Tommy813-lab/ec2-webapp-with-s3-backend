@@ -1,0 +1,22 @@
+# Security Policy
+
+## Supported Versions
+We release changes as needed. Please use the latest version of this repository.  
+Older versions are not guaranteed to receive security updates.
+
+| Version | Supported          |
+| ------- | ------------------ |
+| Latest  | :white_check_mark: |
+| Older   | :x:                |
+
+## Reporting a Vulnerability
+If you discover a security vulnerability in this project:
+
+- **Do not** open a public GitHub issue.
+- Please email: [YOUR_EMAIL@domain.com] with details of the issue.
+- Include steps to reproduce if possible.
+- We will review, confirm, and address the issue as quickly as possible.
+
+## Guidelines
+- Do not attempt to exploit vulnerabilities on live systems or services.
+- Keep communication private until a fix is published.
